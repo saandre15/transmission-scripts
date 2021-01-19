@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Quaratines suspected files into another directory to be inspected.
+# Virus Scans and quaratines suspected files into another directory to be inspected.
 
 MOUNTPOINT="/mnt/media"
 DATE=$(date +"%Y-%m-%d")
 TIME=$(date +"%T")
 LOGFILE="/var/log/transmission/scanlogs/completed-${$TR_TORRENT_NAME}_${$DATE}.log"
+# Relative to the mount point.
 QUARANTINEDIR="/.quarantine"
 
 echo "[$TIME]: NEW TORRENT COMPLETED" >> $LOGFILE
@@ -42,8 +43,7 @@ do
   MOVE_BACK_SCRIPT="$FILE_QUARATINEDIR/$FILENAME.move_back.sh"
   touch MOVE_BACK_SCRIPT
   chmod +x MOVE_BACK_SCRIPT
-  echo "if "
-  echo "mv $FILE_QUARATINEDIR/$FILENAME "
+  echo "torrent-move-back-v1.sh $FILENAME $FILE_QUARATINEDIR $TR_TORRENT_DIR"
   
   exit 1
   ;;
